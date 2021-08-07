@@ -52,4 +52,4 @@ jobs:
 
     - name: Publish
       if: startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch')
-      run: dotnet nuget push ./nupkg/IgorTextFormatter/IgorTextFormatter/bin/Release/.${GITHUB_REF#refs/tags/}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./nupkg/IgorTextFormatter.${GITHUB_REF#refs/tags/}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
