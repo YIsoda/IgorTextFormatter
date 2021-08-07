@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IgorTextFormatter", "IgorTextFormatter\IgorTextFormatter.csproj", "{3AC11A3F-0A58-46B9-B298-620517A0D91C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IgorTextFormatter", "IgorTextFormatter\IgorTextFormatter.csproj", "{3AC11A3F-0A58-46B9-B298-620517A0D91C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EF476D96-9798-4082-9AF2-07AF0E11BAA1}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
