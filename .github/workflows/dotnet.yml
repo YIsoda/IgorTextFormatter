@@ -37,7 +37,7 @@ jobs:
       if: github.event_name == 'workflow_dispatch'
       run: dotnet pack --output ./nupkg --configuration Release -p:PackageVersion=${{github.event.inputs.dummy_tag}}
     - name: Pack
-      run: dotnet pack --output ./nupkg --configuration Release -p:PackageVersion=${{GITHUB_REF/refs\/tags\//}}
+      run: dotnet pack --output ./nupkg --configuration Release -p:PackageVersion=${${{github.refs}}/refs\/tags\//}}
       if: startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch')
     - name: Upload .nupkg file (dummy)
       uses: actions/upload-artifact@v2
@@ -48,8 +48,8 @@ jobs:
       uses: actions/upload-artifact@v2
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        path: ./nupkg/IgorTextFormatter.${{GITHUB_REF/refs\/tags\//}}.nupkg
+        path: ./nupkg/IgorTextFormatter.${${{github.refs}}/refs\/tags\//}}.nupkg
 
     - name: Publish
       if: startsWith(github.ref, 'refs/tags/') && !(github.event_name == "workflow_dispatch")
-      run: dotnet nuget push ./nupkg/IgorTextFormatter/IgorTextFormatter/bin/Release/.${{github.event.inputs.dummy_tag}}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./nupkg/IgorTextFormatter/IgorTextFormatter/bin/Release/.${${{github.refs}}/refs\/tags\//}}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
