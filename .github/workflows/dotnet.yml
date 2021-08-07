@@ -3,10 +3,12 @@ name: Build & Package
 on:
   push:
     branches: [ main ]
-    tags: "*"
+    tags:
+      - '*'
   pull_request:
     branches: [ main ]
-    tags: "*"
+    tags:
+      - '*'
   workflow_dispatch:
     inputs:
       dummy_tag:
