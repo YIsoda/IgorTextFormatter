@@ -3,9 +3,19 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>0.1.0</Version>
+    <RepositoryUrl>https://github.com/YIsoda/IgorTextFormatter</RepositoryUrl>
+    <Authors>Yosuke Isoda</Authors>
+    <Company />
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <NeutralLanguage></NeutralLanguage>
+    <PackageTags>IgorPro;Igor;IgorText</PackageTags>
+    <Description>Writes one-dimensional data to a file in Igor Text format.</Description>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageProjectUrl>https://github.com/YIsoda/IgorTextFormatter</PackageProjectUrl>
+    <FileVersion>0.1.0.0</FileVersion>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -14,6 +24,13 @@
 
   <ItemGroup>
     <PackageReference Include="ZString" Version="2.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using Cysharp.Text;
 
 namespace IgorTextFormatter
 {
-    public class IgorTextFormatter
+    public static class IgorTextFormatter
     {
         /// <summary>
         /// Writes 1-D data with the name, scales, unit names specified by <paramref name="waveDataInfo"/> to the <paramref name="file"/>.
@@ -15,7 +15,7 @@ namespace IgorTextFormatter
         /// <param name="waveData"></param>
         /// <param name="file"></param>
         /// <returns></returns>
-        public static async Task WriteFile(WaveInfo waveDataInfo, IEnumerable<int> waveData, FileInfo file)
+        public static async Task WriteFile<T>(WaveInfo waveDataInfo, IEnumerable<T> waveData, FileInfo file)
         {
             if (string.IsNullOrEmpty(waveDataInfo.Name))
             {
@@ -23,7 +23,7 @@ namespace IgorTextFormatter
             }
 
             using var stringBuilder = ZString.CreateUtf8StringBuilder();
-            Console.WriteLine(file.FullName);
+
             using var fs = File.Open(file.FullName, FileMode.OpenOrCreate);
 
             stringBuilder.AppendFormat(
@@ -42,6 +42,57 @@ namespace IgorTextFormatter
                 );
 
             await stringBuilder.WriteToAsync(fs);
+        }
+
+
+        public static string ToIgorTextString<T>(IEnumerable<T> waveData, string waveName)
+        {
+            if (string.IsNullOrEmpty(waveName))
+            {
+                throw new ArgumentException($"The name of Igor wave data, hense the {nameof(waveName)} property, must not be empty string");
+            }
+
+            using var stringBuilder = ZString.CreateUtf8StringBuilder();
+
+            stringBuilder.AppendFormat(
+                "IGOR\n" +
+                "WAVES/D \'{0}\'\n" +
+                "BEGIN\n", waveName
+                );
+
+            stringBuilder.AppendJoin(separator: "\n", waveData);
+
+            stringBuilder.AppendLine("END");
+
+            stringBuilder.AppendFormat(@"X SetScale/P x 0, 1, """", '{0}'; SetScale y 0,1,"""", '{0}'", waveName);
+
+            return stringBuilder.ToString();
+        }
+
+        public static string ToIgorTextString<T>(IEnumerable<T> waveData, WaveInfo waveInfo)
+        {
+            if (string.IsNullOrEmpty(waveInfo.Name))
+            {
+                throw new ArgumentException($"The name of Igor wave data, hense the {nameof(waveInfo.Name)} property, must not be empty string");
+            }
+
+            using var stringBuilder = ZString.CreateUtf8StringBuilder();
+
+            stringBuilder.AppendFormat(
+                "IGOR\n" +
+                "WAVES/D \'{0}\'\n" +
+                "BEGIN\n", waveInfo.Name
+                );
+
+            stringBuilder.AppendJoin(separator: "\n", waveData);
+
+            stringBuilder.AppendLine("END");
+
+            stringBuilder.AppendFormat(@"X SetScale/P x {0},{1},""{2}"", '{6}'; SetScale y {3},{4},""{5}"", '{6}'",
+                waveInfo.XScale.Start, waveInfo.XScale.Delta, waveInfo.XUnitName,
+                waveInfo.YScale.Start, waveInfo.YScale.Delta, waveInfo.YUnitName, waveInfo.Name
+                );
+            return stringBuilder.ToString();
         }
     }
 
