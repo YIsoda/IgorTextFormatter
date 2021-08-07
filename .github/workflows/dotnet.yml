@@ -20,6 +20,17 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore -p:GeneratePackageOnBuild=false
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Pack
+      run: dotnet pack --output nupkg --configuration Release -p:PackageVersion=${GITHUB_REF/refs\/tags\//}
+      if: startsWith(github.ref, 'refs/tags/')
+    - name: Upload .nupkg file
+      uses: actions/upload-artifact@v2
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        path: nupkg/IgorTextFormatter.${GITHUB_REF/refs\/tags\//}.nupkg
+#     - name: Publish
+#       if: startsWith(github.ref, 'refs/tags/')
+#       run: dotnet nuget push IgorTextFormatter\IgorTextFormatter\bin\Release\.*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
