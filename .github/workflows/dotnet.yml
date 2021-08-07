@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: github.event_name == 'workflow_dispatch'
       with:
-        path: nupkg/IgorTextFormatter.${github.event.inputs.dummy_tag}.nupkg
+        path: nupkg/IgorTextFormatter.${{github.event.inputs.dummy_tag}}.nupkg
     - name: Upload .nupkg file
       uses: actions/upload-artifact@v2
       if: startsWith(github.ref, 'refs/tags/')
