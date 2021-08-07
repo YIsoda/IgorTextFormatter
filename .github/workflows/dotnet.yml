@@ -1,4 +1,4 @@
-name: .NET
+name: Build & Package
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
       
     - name: Pack and Upload for dummy
       if: github.event_name == 'workflow_dispatch'
-      run: dotnet pack --output nupkg --configuration Release -p:PackageVersion=${github.event.inputs.dummy_tag}
+      run: dotnet pack --output nupkg --configuration Release -p:PackageVersion=${{github.event.inputs.dummy_tag}}
     - name: Pack
       run: dotnet pack --output nupkg --configuration Release -p:PackageVersion=${GITHUB_REF/refs\/tags\//}
       if: startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch')
