@@ -24,16 +24,16 @@ namespace IgorTextFormatter
 
             using var stringBuilder = ZString.CreateUtf8StringBuilder();
 
-            using var fs = File.Open(file.FullName, FileMode.OpenOrCreate);
+            using var fs = File.Open(file.FullName, FileMode.Create);
 
             stringBuilder.AppendFormat(
                 "IGOR\n" +
                 "WAVES/D \'{0}\'\n" +
-                "BEGIN\n", waveDataInfo.Name
+                "BEGIN\n" +
+                "\t", waveDataInfo.Name
                 );
-
-            stringBuilder.AppendJoin(separator: "\n", waveData);
-
+            stringBuilder.AppendJoin(separator: "\n\t", waveData);
+            stringBuilder.AppendLine();
             stringBuilder.AppendLine("END");
 
             stringBuilder.AppendFormat(@"X SetScale/P x {0},{1},""{2}"", '{6}'; SetScale y {3},{4},""{5}"", '{6}'",
@@ -101,8 +101,6 @@ namespace IgorTextFormatter
     /// </summary>
     public class WaveInfo
     {
-        //public ref Span<double> DataSpan;
-
         /// <summary>
         /// Represents the name of the wave. Must not be an empty string.
         /// </summary>
