@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
@@ -8,7 +8,7 @@
     <RepositoryUrl>https://github.com/YIsoda/IgorTextFormatter</RepositoryUrl>
     <Authors>Yosuke Isoda</Authors>
     <Company />
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage></NeutralLanguage>
     <PackageTags>IgorPro;Igor;IgorText</PackageTags>
     <Description>Writes one-dimensional data to a file in Igor Text format.</Description>
