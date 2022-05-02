@@ -59,9 +59,8 @@ namespace IgorTextFormatter
             {
                 throw new ArgumentException($"The name of Igor wave data, hense the {nameof(waveName)} property, must not be empty string");
             }
-            return ToIgorTextString(waveData, new WaveInfo()
+            return ToIgorTextString(waveData, new WaveInfo(waveName: waveName)
             {
-                Name = waveName,
                 XScale = Scale.Default,
                 XUnitName = "",
                 YScale = Scale.Default,
@@ -105,6 +104,15 @@ namespace IgorTextFormatter
         /// Represents the name of the wave. Must not be an empty string.
         /// </summary>
         public string Name { get; init; }
+
+        /// <summary>
+        /// Initialize with wave information. A valid wave name is required.
+        /// </summary>
+        /// <param name="waveName">wave name to be output</param>
+        public WaveInfo(string waveName)
+        {
+            Name = waveName;
+        }
 
         /// <summary>
         /// Represents the unit name in the x direction.
