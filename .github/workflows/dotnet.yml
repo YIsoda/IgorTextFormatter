@@ -51,12 +51,12 @@ jobs:
       uses: actions/upload-artifact@v4
       if: ${{!(startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch'))}}
       with:
-        path: ./nupkg/IgorTextFormatter.0.0.0.nupkg
+        path: ${{ github.workspace }}/nupkg/IgorTextFormatter.0.0.0.nupkg
     - name: Upload .nupkg file
       uses: actions/upload-artifact@v4
       if: ${{startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch')}}
       with:
-        path: ./nupkg/IgorTextFormatter.${GITHUB_REF#refs/tags/}.nupkg
+        path: ${{ github.workspace }}/nupkg/IgorTextFormatter.${GITHUB_REF#refs/tags/}.nupkg
         
   publish:
     needs: [build, pack]
