@@ -43,7 +43,7 @@ jobs:
     - run: dotnet build --configuration Release
     - name: Pack (dummy)
       if: ${{!(startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch'))}}
-      run: dotnet pack --output ./nupkg --configuration Release -p:PackageVersion=${GITHUB_REF#refs/heads}
+      run: dotnet pack --output ./nupkg --configuration Release -p:PackageVersion=${GITHUB_REF#refs/heads/}
     - name: Pack
       if: ${{startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch')}}
       run: dotnet pack --output ./nupkg --configuration Release -p:PackageVersion=${GITHUB_REF#refs/tags/}
@@ -51,7 +51,7 @@ jobs:
       uses: actions/upload-artifact@v4
       if: ${{!(startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch'))}}
       with:
-        path: ${{ github.workspace }}/nupkg/IgorTextFormatter.${GITHUB_REF#refs/heads}.nupkg
+        path: ${{ github.workspace }}/nupkg/IgorTextFormatter.${GITHUB_REF#refs/heads/}.nupkg
     - name: Upload .nupkg file
       uses: actions/upload-artifact@v4
       if: ${{startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch')}}
