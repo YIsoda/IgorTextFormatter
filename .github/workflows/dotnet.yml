@@ -40,7 +40,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6
-  
+    - run: dotnet build --configuration Release
     - name: Pack (dummy)
       if: github.event_name == 'workflow_dispatch'
       run: dotnet pack --output ./nupkg --configuration Release -p:PackageVersion=${{github.event.inputs.dummy_tag}}
