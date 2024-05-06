@@ -35,6 +35,12 @@ jobs:
   pack:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 6
+  
     - name: Pack (dummy)
       if: github.event_name == 'workflow_dispatch'
       run: dotnet pack --output ./nupkg --configuration Release -p:PackageVersion=${{github.event.inputs.dummy_tag}}
