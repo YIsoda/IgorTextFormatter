@@ -3,6 +3,8 @@ name: Build & Package
 on:
   push:
     branches: '*'
+  release: 
+    types: published
   workflow_dispatch:
     inputs:
       dummy_tag:
