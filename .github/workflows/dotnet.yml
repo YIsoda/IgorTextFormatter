@@ -56,7 +56,7 @@ jobs:
       uses: actions/upload-artifact@v4
       if: ${{startsWith(github.ref, 'refs/tags/') && !(github.event_name == 'workflow_dispatch')}}
       with:
-        path: ${{ github.workspace }}/nupkg/IgorTextFormatter.${GITHUB_REF#refs/tags/}.nupkg
+        path: ${{ github.workspace }}/nupkg/IgorTextFormatter.${${{ github.ref }}#refs/tags}.nupkg
         
   publish:
     needs: [build, pack]
@@ -66,4 +66,4 @@ jobs:
     - name: Download .nupkg file
       uses: actions/download-artifact@v4
     - name: Publish
-      run: dotnet nuget push IgorTextFormatter.${{ github.workspace }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push IgorTextFormatter.${GITHUB_REF#refs/tags/}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
